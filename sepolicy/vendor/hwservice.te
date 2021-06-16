@@ -1,4 +1,2 @@
-# hwservice.te
-
 type hal_vendor_eden_runtime_hwservice, hwservice_manager_type;
 type hal_vendor_a2dpoffload_hwservice, hwservice_manager_type;

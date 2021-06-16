@@ -1,5 +1,3 @@
-# macloader.te
-
 allow macloader init:unix_stream_socket connectto;
 
 # vendor.wifi.dualconcurrent.interface

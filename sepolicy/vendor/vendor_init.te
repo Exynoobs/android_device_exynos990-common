@@ -1,5 +1,3 @@
-# vendor_init.te
-
 allow vendor_init tmpfs:dir { write add_name };
 allow vendor_init tmpfs:lnk_file create;
 allow vendor_init proc_dirty:file {  write getattr };

@@ -1,4 +1,2 @@
-# lhd.te
-
 get_prop(lhd, debug_level_prop);
 get_prop(lhd, product_ship_prop);

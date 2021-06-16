@@ -1,5 +1,3 @@
-# hal_neuralnetworks_eden_drv_default.te
-
 type hal_neuralnetworks_eden_drv_default, domain;
 hal_server_domain(hal_neuralnetworks_eden_drv_default, hal_neuralnetworks)
 

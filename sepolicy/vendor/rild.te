@@ -1,5 +1,3 @@
-# rild.te
-
 allow rild hal_camera_default:dir search;
 allow rild hal_camera_default:file { read open getattr };
 allow rild hal_secure_element_default:dir search;

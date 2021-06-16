@@ -1,4 +1,2 @@
-# secril_config_svc.te
-
 allow secril_config_svc imei_efs_file:dir search;
 allow secril_config_svc imei_efs_file:file r_file_perms;

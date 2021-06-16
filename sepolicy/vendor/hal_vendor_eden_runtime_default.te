@@ -1,5 +1,3 @@
-# hal_vendor_eden_runtime_default.te
-
 type hal_vendor_eden_runtime_default, domain;
 hal_server_domain(hal_vendor_eden_runtime_default, hal_neuralnetworks)
 add_hwservice(hal_vendor_eden_runtime_default, hal_vendor_eden_runtime_hwservice)
