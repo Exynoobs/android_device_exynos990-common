@@ -27,6 +27,50 @@ on init
 
     symlink /dev/block/platform/13100000.ufs/by-name/steady /dev/block/steady
     symlink /dev/block/platform/13100000.ufs/by-name/persistent /dev/block/persistent
+    symlink /dev/block/platform/13100000.ufs/by-name/param /dev/block/param
+
+# Permissions for input_booster
+    chown system system /sys/class/input_booster/touch/level
+    chown system system /sys/class/input_booster/touch/head
+    chown system system /sys/class/input_booster/touch/tail
+    chmod 0664 /sys/class/input_booster/touch/level
+    chmod 0664 /sys/class/input_booster/touch/head
+    chmod 0664 /sys/class/input_booster/touch/tail
+
+# CPUSET(990)
+    chown system system /dev/cpuset/top-app/cpus
+    chown system system /dev/cpuset/foreground/cpus
+    chown system system /dev/cpuset/background/cpus
+    chown system system /dev/cpuset/system-background/cpus
+    chown system system /dev/cpuset/restricted/cpus
+    chown system system /dev/cpuset/cpus
+    chmod 664 /dev/cpuset/top-app/cpus
+    chmod 664 /dev/cpuset/foreground/cpus
+    chmod 664 /dev/cpuset/background/cpus
+    chmod 664 /dev/cpuset/system-background/cpus
+    chmod 664 /dev/cpuset/restricted/cpus
+    chmod 664 /dev/cpuset/cpus
+    write /dev/cpuset/top-app/cpus 0-7
+    write /dev/cpuset/foreground/cpus 0-2,4-7
+    write /dev/cpuset/background/cpus 0-2
+    write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/restricted/cpus 0-2
+
+    mkdir /dev/cpuset/sf
+    copy /dev/cpuset/cpus /dev/cpuset/sf/cpus
+    copy /dev/cpuset/mems /dev/cpuset/sf/mems
+
+    chown system system /dev/cpuset/sf/tasks
+    chown system system /dev/cpuset/sf/cgroup.procs
+    chown system system /dev/cpuset/sf/cpus
+
+    chmod 0664 /dev/cpuset/sf/cpus
+    chown system system /dev/cpuset/sf/cpus
+    write /dev/cpuset/sf/cpus 0-7
+
+    chown system system /dev/cpuset/tasks
+    chown system system /dev/cpuset/cgroup.procs
+    chmod 0664 /dev/cpuset/tasks
 
 # setup cgroup freezer
     mkdir /dev/freezer
@@ -43,7 +87,7 @@ on init
     chmod 0644 /dev/freezer/olaf/cgroup.procs
     chmod 0644 /dev/freezer/olaf/freezer.state
 
-# Slowdown freezer
+# SDHMS Slowdown : Freezer
     mkdir /dev/freezer/abnormal
     write /dev/freezer/abnormal/freezer.state THAWED
     chown system system /dev/freezer/abnormal
@@ -93,10 +137,6 @@ on init
 
     write /dev/stune/schedtune.boost 0
 
-    chown system system /dev/cpuset/tasks
-    chown system system /dev/cpuset/cgroup.procs
-    chmod 0664 /dev/cpuset/tasks
-
     chown system system /sys/kernel/ems/emstune/req_mode
     chmod 0664 /sys/kernel/ems/emstune/req_mode
 
@@ -128,6 +168,15 @@ on init
 
     chown system system /dev/mode
     chmod 0664 /dev/mode
+
+# FactoryApp(SensorHub)
+    chown system radio /efs/FactoryApp/version
+    chown system radio /efs/FactoryApp/predefine0
+    chown system radio /efs/FactoryApp/predefine1
+    chown system radio /efs/FactoryApp/predefine2
+    chown system system /efs/FactoryApp/baro_delta
+    chown root system /efs/FactoryApp/gyro_cal_data
+    chown root system /efs/FactoryApp/mag_cal_param
 
 # Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
@@ -325,7 +374,24 @@ on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
+# TEEGRIS service
+    mkdir /efs/tee 0700 system system
+    mkdir /mnt/vendor/efs/tee 0700 system system
+    mkdir /data/vendor/tee 0700 system system
+    mkdir /dev/socket/iwt 0770 system system
+    mkdir /dev/socket/iwt/ca 0770 system system
+    start tz_service
+    start tz_msg_recv
+    wait_for_prop vendor.tzdaemon Ready
+    setprop vendor.TEEGRIS.loaded true
+    write /proc/iccc_ready 1
+    start tzts_service
+    wait_for_prop vendor.tzts_daemon Ready
+
 on post-fs-data
+
+# MST/NFC Switch
+    chmod 0660 /dev/mst_ctrl
 
 # Log data folder
     mkdir /data/vendor 0771 root system
@@ -361,6 +427,8 @@ on post-fs-data
     chown audioserver system /sys/kernel/debug/abox/snapshot_1/log
     chown audioserver system /sys/kernel/debug/abox/snapshot_0/valid
     chown audioserver system /sys/kernel/debug/abox/snapshot_1/valid
+    chown audioserver system /sys/kernel/debug/abox/snapshot_0/clear
+    chown audioserver system /sys/kernel/debug/abox/snapshot_1/clear
 
 # Audio amp bigdata
     chown system audio /sys/class/audio/amp/temperature_max_0
@@ -496,6 +564,8 @@ on post-fs-data
     chown system radio /sys/class/camera/rear/rear2_tof_tilt
     chown system radio /sys/class/camera/rear/rear_tof_cal_result
     chown system camera /sys/class/camera/rear/rear_tof_check_pd
+    chown system camera /sys/class/camera/rear/rear_tof_laser_error_flag
+    chown system camera /sys/class/camera/rear/rear_tof_freq
     chown cameraserver cameraserver /sys/class/camera/rear/rear_tof_sensorid
     chown cameraserver cameraserver /sys/class/camera/rear/rear_tof_sensorid_exif
     chown cameraserver cameraserver /sys/class/camera/rear/ssrm_camera_info
@@ -570,6 +640,10 @@ on post-fs-data
     chown system system /sys/devices/svc/Camera/SVC_front_module
     chown system system /sys/devices/svc/Camera/SVC_front_module2
 
+# Permissions Camera
+    # need to move under /data/vendor
+    mkdir /data/vendor/camera 0777 root root
+  
     chmod 0755 /sys/kernel/debug/tracing
     restorecon /sys/kernel/debug/tracing/trace_marker
 
@@ -578,13 +652,6 @@ on post-fs-data
 
 # Video data
     mkdir /data/vendor/media 0700 mediacodec mediacodec
-
-# for WIFI MAC address
-    mkdir /mnt/vendor/efs/wifi 0775 wifi root
-    chown wifi root /mnt/vendor/efs/wifi/.mac.info
-    chmod 0664 /mnt/vendor/efs/wifi/.mac.info
-    chown wifi root /mnt/vendor/efs/wifi/.mac.cob
-    chmod 0664 /mnt/vendor/efs/wifi/.mac.cob
 
 # HWC data
     mkdir /data/vendor/log/hwc 0771 system graphics
@@ -600,6 +667,7 @@ on post-fs-data
     mkdir /dev/freezer/thaw
     write /dev/freezer/frozen/freezer.state FROZEN
     write /dev/freezer/thaw/freezer.state THAWED
+    write /dev/freezer/frozen/freezer.killable 1
 
 # MARs for freecess
     chown system system /dev/freezer
@@ -624,68 +692,26 @@ on post-fs-data
     chown system system /sys/devices/platform/npu_exynos/qos_freq/dnc_freq_maxlock
 
 on boot
-# BarTender
-    mkdir /dev/cpuctl/bg_cached
-    chown system system /dev/cpuctl/bg_cached/tasks
-    chown system system /dev/cpuctl/bg_cached/cpu.cfs_period_us
-    chown system system /dev/cpuctl/bg_cached/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/bg_cached/tasks
-    chmod 0664 /dev/cpuctl/bg_cached/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/bg_cached/cpu.cfs_quota_us
-    write /dev/cpuctl/bg_cached/cpu.rt_runtime_us 950000
-    write /dev/cpuctl/bg_cached/cpu.rt_period_us 1000000
-    write /dev/cpuctl/bg_cached/cpu.cfs_period_us 20000
-    write /dev/cpuctl/bg_cached/cpu.cfs_quota_us 10000
-
-    mkdir /dev/cpuctl/bg_abnormal
-    chown system system /dev/cpuctl/bg_abnormal/tasks
-    chown system system /dev/cpuctl/bg_abnormal/cpu.cfs_period_us
-    chown system system /dev/cpuctl/bg_abnormal/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/bg_abnormal/tasks
-    chmod 0664 /dev/cpuctl/bg_abnormal/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/bg_abnormal/cpu.cfs_quota_us
-    write /dev/cpuctl/bg_abnormal/cpu.rt_runtime_us 950000
-    write /dev/cpuctl/bg_abnormal/cpu.rt_period_us 1000000
-    write /dev/cpuctl/bg_abnormal/cpu.cfs_period_us 20000
-    write /dev/cpuctl/bg_abnormal/cpu.cfs_quota_us 10000
-
-    mkdir /dev/cpuset/cached
-    write /dev/cpuset/cached/cpus 0-3
-    copy /dev/cpuset/mems /dev/cpuset/cached/mems
+# SDHMS Slowdown : Cpuset
     mkdir /dev/cpuset/abnormal
     write /dev/cpuset/abnormal/cpus 0-3
     copy /dev/cpuset/mems /dev/cpuset/abnormal/mems
 
-    # change permissions for BarTender's cpusets we'll touch at runtime
-    chown system system /dev/cpuset/cached
     chown system system /dev/cpuset/abnormal
-    chown system system /dev/cpuset/cached/tasks
     chown system system /dev/cpuset/abnormal/tasks
-    chown system system /dev/cpuset/cached/cpus
     chown system system /dev/cpuset/abnormal/cpus
-    chmod 0664 /dev/cpuset/cached/tasks
     chmod 0664 /dev/cpuset/abnormal/tasks
-    chmod 0664 /dev/cpuset/cached/cpus
     chmod 0664 /dev/cpuset/abnormal/cpus
 
-# CPUSET(990)
-    chown system system /dev/cpuset/top-app/cpus
-    chown system system /dev/cpuset/foreground/cpus
-    chown system system /dev/cpuset/background/cpus
-    chown system system /dev/cpuset/system-background/cpus
-    chown system system /dev/cpuset/restricted/cpus
-    chown system system /dev/cpuset/cpus
-    chmod 664 /dev/cpuset/top-app/cpus
-    chmod 664 /dev/cpuset/foreground/cpus
-    chmod 664 /dev/cpuset/background/cpus
-    chmod 664 /dev/cpuset/system-background/cpus
-    chmod 664 /dev/cpuset/restricted/cpus
-    chmod 664 /dev/cpuset/cpus
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-2,4-7
-    write /dev/cpuset/background/cpus 0-2
-    write /dev/cpuset/system-background/cpus 0-2
-    write /dev/cpuset/restricted/cpus 0-2
+    mkdir /dev/cpuset/moderate
+    write /dev/cpuset/moderate/cpus 0-2,4-6
+    copy /dev/cpuset/mems /dev/cpuset/moderate/mems
+
+    chown system system /dev/cpuset/moderate
+    chown system system /dev/cpuset/moderate/tasks
+    chown system system /dev/cpuset/moderate/cpus
+    chmod 0664 /dev/cpuset/moderate/tasks
+    chmod 0664 /dev/cpuset/moderate/cpus
 
 # Ownership and permissions for SEC PM
     # CPU dynamic hotplug
@@ -721,13 +747,6 @@ on boot
     chmod 0664 /sys/devices/platform/18500000.mali/cl_boost_disable
     chmod 0664 /sys/devices/platform/18500000.mali/dvfs_min_lock
     chmod 0664 /sys/devices/platform/18500000.mali/dvfs_max_lock
-
-    chown radio system /sys/kernel/gpu/gpu_min_clock
-    chown radio system /sys/kernel/gpu/gpu_max_clock
-    chown radio system /sys/kernel/gpu/gpu_freq_table
-    chmod 0664 /sys/kernel/gpu/gpu_min_clock
-    chmod 0664 /sys/kernel/gpu/gpu_max_clock
-    chmod 0644 /sys/kernel/gpu/gpu_freq_table
 
     # MSP Core Status
     chown system system /sys/devices/system/cpu/cpu1/online
@@ -770,12 +789,12 @@ on boot
     chmod 0664 /sys/class/sec/ap_pmic/power_meter/adc_sync_mode
 
     # PMIC: S2MPS22 Power Meter
-    chown system system /sys/class/sec/ap_sub_pmic/power_meter/adc_ctrl1
-    chown system system /sys/class/sec/ap_sub_pmic/power_meter/adc_en
-    chown system system /sys/class/sec/ap_sub_pmic/power_meter/adc_sync_mode
-    chmod 0664 /sys/class/sec/ap_sub_pmic/power_meter/adc_ctrl1
-    chmod 0664 /sys/class/sec/ap_sub_pmic/power_meter/adc_en
-    chmod 0664 /sys/class/sec/ap_sub_pmic/power_meter/adc_sync_mode
+    chown system system /sys/class/sec/ap_s_pmic/power_meter/adc_ctrl1
+    chown system system /sys/class/sec/ap_s_pmic/power_meter/adc_en
+    chown system system /sys/class/sec/ap_s_pmic/power_meter/adc_sync_mode
+    chmod 0664 /sys/class/sec/ap_s_pmic/power_meter/adc_ctrl1
+    chmod 0664 /sys/class/sec/ap_s_pmic/power_meter/adc_en
+    chmod 0664 /sys/class/sec/ap_s_pmic/power_meter/adc_sync_mode
 
     # PMIC: S2DOS05 Display PMIC
     chown system system /sys/class/sec/disp_pmic/enable_fd
@@ -797,7 +816,7 @@ on boot
 # Permissions for NAD
     symlink /dev/block/by-name/nad_refer /dev/block/NAD_REFER
     symlink /dev/block/by-name/ufs_test /dev/block/UFS_TEST
-    
+
  # Bluetooth
     chown bluetooth bluetooth /dev/ttySAC1
     chmod 0660 /dev/ttySAC1
@@ -1065,6 +1084,12 @@ on fs
     chown system system /sys/class/mdnie/mdnie/lux
     chmod 0644 /sys/class/mdnie/mdnie/lux
 
+# Diag-daemon
+    mkdir /efs/cpdebug 0771 radio system
+    symlink /dev/block/by-name/cp_debug /efs/cpdebug/node
+    chmod 0660 /efs/cpdebug/node
+    chown radio system /efs/cpdebug/node
+
 # GPIO
     chown root system /sys/class/secgpio_check/secgpio_check_all/check_requested_gpio
 
@@ -1076,9 +1101,6 @@ on fs
 
 #load ecd firmware
     write /proc/ecd/load_firmware 1
-
-# ARGOSD network_throughput
-    chown system system /dev/network_throughput
 
 #mDNIe
     exec - system system -- /system/bin/mafpc_write
@@ -1110,3 +1132,8 @@ on fs && property:ro.debuggable=1
     chown system system /sys/class/lcd/panel/write_mtp
     chown system system /dev/panel_spi
 
+on property:service.camera.running=0
+    write /dev/cpuset/background/cpus 0-2
+
+on property:service.camera.running=1
+    write /dev/cpuset/background/cpus 0-3
