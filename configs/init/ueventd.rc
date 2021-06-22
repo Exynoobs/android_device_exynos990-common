@@ -201,7 +201,7 @@
 # Modem Interface
 /dev/block/by-name/radio    0660   system     radio
 /dev/block/by-name/cp_debug 0660   radio      system
-/sys/devices/platform/10000.mif_pdata	sim/ds_detect	0660	radio	system
+/sys/devices/platform/cpif	sim/ds_detect	0660	radio	system
 /dev/umts*                  0660   system     radio
 /dev/ipc*                   0660   system     radio
 /dev/umts_csd               0660   system     loop_radio
@@ -216,6 +216,9 @@
 
 # Reactivation lock
 /dev/block/platform/13100000.ufs/by-name/steady    0660    system    system
+
+# Reactivation lock
+/dev/block/platform/13100000.ufs/by-name/param    0660    root    system
 
 # interactive governor parameters
 /sys/devices/system/cpu/cpu*	cpufreq/interactive/timer_rate			0660	system	system
@@ -242,10 +245,15 @@
 #SCSC Bluetooth
 /dev/scsc_h4_0           0660   bluetooth  bluetooth
 
+#grip sensor
+/dev/input/event*				0660	system	input
+/sys/devices/virtual/input/input*   enable      0660	system	input
+
 # Sensor sysfs properties
 /sys/devices/virtual/input/input*    poll_delay    0660    system    radio
 /sys/devices/virtual/input/input*    enable        0660    system    radio
 /dev/input/event*	  0660   system		input
+/dev/ssp_data_injection   0660   system     	system
 
 # Sensorhub IIO
 /dev/ssp_sensorhub        0660   system		system
@@ -266,13 +274,13 @@
 /dev/bbd_urgent_patch     0660   system     system
 /dev/ttyBCM*              0660   system     system
 
-# Voice Trigger Sound (VTS Misc)
-/dev/vts_fio_dev         0660   audioserver   system
-
 # TEEGRIS
-/dev/tzdev		0666	system		system
-/dev/tziwsock		0666	system		system
-/dev/ionfd2phys		0660	system		system
-/dev/tuihw		0660	system		system
-/dev/tzirs		0660	system		system
-/dev/nwfsdev		0660	system		system
+/dev/tzdev              0666   system     system
+/dev/tziwsock           0666   system     system
+/dev/ionfd2phys         0660   system     system
+/dev/tuihw              0660   system     system
+/dev/tzirs              0660   system     system
+/dev/nwfsdev            0660   system     system
+
+# Voice Trigger Sound (VTS Misc)
+/dev/vts_fio_dev        0660   audioserver   system
