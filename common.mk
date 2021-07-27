@@ -42,9 +42,9 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_default_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_default_stream_volumes.xml \
     frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_product_strategies.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_product_strategies.xml \
     frameworks/av/services/audiopolicy/enginedefault/config/example/phone/audio_policy_engine_stream_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_stream_volumes.xml \
-    $(COMMON_PATH)/config/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    $(COMMON_PATH)/config/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(COMMON_PATH)/config/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
+    $(COMMON_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    $(COMMON_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(COMMON_PATH)/configs/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -53,7 +53,7 @@ PRODUCT_PACKAGES += \
     libbt-vendor:64
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
+    $(COMMON_PATH)/configs/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -116,17 +116,17 @@ PRODUCT_PACKAGES += \
 
 # init
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/init/fstab.exynos990:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos990 \
-    $(COMMON_PATH)/config/init/fstab.exynos990:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos990 \
-    $(COMMON_PATH)/config/init/init.exynos990.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.exynos990.rc \
-    $(COMMON_PATH)/config/init/init.exynos990.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.exynos990.usb.rc \
-    $(COMMON_PATH)/config/init/init.exynos990.root.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.exynos990.root.rc \
-    $(COMMON_PATH)/config/ueventd/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    $(COMMON_PATH)/recovery/etc/init.recovery.exynos990.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.exynos990.rc
+    $(COMMON_PATH)/configs/init/fstab.exynos990:$(TARGET_COPY_OUT_RAMDISK)/fstab.exynos990 \
+    $(COMMON_PATH)/configs/init/fstab.exynos990:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.exynos990 \
+    $(COMMON_PATH)/configs/init/init.exynos990.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.exynos990.rc \
+    $(COMMON_PATH)/configs/init/init.exynos990.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.exynos990.usb.rc \
+    $(COMMON_PATH)/configs/init/init.exynos990.root.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.exynos990.root.rc \
+    $(COMMON_PATH)/configs/init/init.recovery.exynos990.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.exynos990.rc \
+    $(COMMON_PATH)/configs/init/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
 
 # Keylayout
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/keylayout/gpio_keys.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/gpio_keys.kl
+    $(COMMON_PATH)/configs/keylayout/sec_touchscreen.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/sec_touchscreen.kl
 
 # Keymaster
 PRODUCT_PACKAGES += \
@@ -164,7 +164,7 @@ PRODUCT_PACKAGES += \
     Tag
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/nfc/libnfc-sec-vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-sec-vendor.conf
+    $(COMMON_PATH)/configs/nfc/libnfc-sec-vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-sec-vendor.conf
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
@@ -227,7 +227,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power-service.samsung-libperfmgr
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+    $(COMMON_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # PowerShare
 PRODUCT_PACKAGES += \
@@ -235,7 +235,7 @@ PRODUCT_PACKAGES += \
 
 # Public Libraries
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/linker/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+    $(COMMON_PATH)/configs/linker/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -249,7 +249,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshim_sensorndkbridge
 
-# Soong Namespaces
+## Soong Namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     hardware/google/interfaces \
@@ -265,7 +265,7 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.samsung
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/thermal/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
+    $(COMMON_PATH)/configs/thermal/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
 
 # Touch HAL
 PRODUCT_PACKAGES += \
@@ -292,5 +292,5 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/config/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(COMMON_PATH)/config/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(COMMON_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(COMMON_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
