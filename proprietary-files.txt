@@ -1,4 +1,4 @@
-# Proprietary files - from Samsung package version XXS8DUE4, unless pinned
+# Proprietary files - from Samsung package version XXU8DUF9, unless pinned
 
 ## Audio
 vendor/etc/a2dp_audio_policy_configuration.xml
@@ -61,7 +61,6 @@ vendor/lib/lib_SamsungRec_08020.so
 vendor/lib/liblastaboxmsg.so
 vendor/lib/lib_lvacfs.so
 vendor/lib64/libengmode_client.so
-vendor/lib/libengmode_client.so
 vendor/lib64/libsemnativecarrierfeature.so
 vendor/lib/libsemnativecarrierfeature.so
 vendor/lib64/libsecril-client.so
@@ -85,7 +84,7 @@ vendor/lib/camera.device@3.3-impl.so
 vendor/lib/camera.device@3.4-impl.so
 vendor/lib/camera.device@3.5-impl.so
 vendor/lib/libtriplepreview_interface.so
-vendor/lib/vendor.samsung.camera.device@5.0-impl.so
+vendor/lib/vendor.samsung.hardware.camera.device@5.0-impl.so
 vendor/lib/vendor.samsung.hardware.camera.device@5.0.so
 vendor/lib/vendor.samsung.hardware.camera.provider@4.0-legacy.so
 vendor/lib/vendor.samsung.hardware.camera.provider@4.0.so
@@ -95,7 +94,7 @@ vendor/lib64/camera.device@3.3-impl.so
 vendor/lib64/camera.device@3.4-impl.so
 vendor/lib64/camera.device@3.5-impl.so
 vendor/lib64/libtriplepreview_interface.so
-vendor/lib64/vendor.samsung.camera.device@5.0-impl.so
+vendor/lib64/vendor.samsung.hardware.camera.device@5.0-impl.so
 vendor/lib64/vendor.samsung.hardware.camera.device@5.0.so
 vendor/lib64/vendor.samsung.hardware.camera.provider@4.0-legacy.so
 vendor/lib64/vendor.samsung.hardware.camera.provider@4.0.so
@@ -123,7 +122,6 @@ vendor/lib/libtriplecam_video_optical_zoom.so
 vendor/lib/libtriplecapture_interface.so
 vendor/lib/libuniapi.so
 vendor/lib/libuniplugin.so
-vendor/lib/libvkmanager_vendor.so
 vendor/lib/libvpl.so
 vendor/lib64/libSEF.quram.so
 vendor/lib64/libbayergdccore.so
@@ -187,19 +185,21 @@ vendor/lib/hw/gralloc.exynos990.so
 vendor/lib64/hw/gralloc.exynos990.so
 
 ## GPS
+
 vendor/bin/hw/gps.sh
 vendor/bin/hw/gpsd
 vendor/bin/hw/lhd
-vendor/bin/hw/vendor.samsung.hardware.gnss@2.0-service
+vendor/bin/hw/vendor.samsung.hardware.gnss@2.1-service
 vendor/etc/gnss/gps.cer
 vendor/etc/gnss/gps.xml
 vendor/etc/init/init.gps.rc
-vendor/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc
+vendor/etc/init/vendor.samsung.hardware.gnss@2.1-service.rc
 vendor/etc/sensor/lhd.conf
 vendor/lib64/hw/android.hardware.gnss@2.1-impl.so
 vendor/lib64/hw/gps.default.so
 vendor/lib64/hw/vendor.samsung.hardware.gnss@2.0-impl.so
 vendor/lib64/vendor.samsung.hardware.gnss@2.0.so
+vendor/lib64/vendor.samsung.hardware.gnss@2.1.so
 
 ## Graphics
 vendor/lib/egl/libGLES_mali.so
@@ -309,7 +309,6 @@ vendor/lib/librilutils.so
 vendor/lib/libsec_semRil.so
 vendor/lib/libsecure_storage.so
 vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
-vendor/lib/vendor.samsung.hardware.radio.channel@2.0.so
 vendor/lib/vendor.samsung.hardware.radio@2.0.so
 vendor/lib/vendor.samsung.hardware.radio@2.1.so
 vendor/lib64/libmdf.so
