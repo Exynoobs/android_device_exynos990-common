@@ -208,8 +208,6 @@ vendor/lib64/egl/libGLES_mali.so
 vendor/lib64/libion_exynos.so
 
 ## HWC
-vendor/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
-vendor/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
 vendor/lib/hw/hwcomposer.exynos990.so
 vendor/lib/libExynosHWCService.so
 vendor/lib/libGrallocMapperCamera.so
@@ -232,7 +230,6 @@ vendor/lib64/libexynosscaler.so
 vendor/lib64/libexynosutils.so
 vendor/lib64/libexynosv4l2.so
 vendor/lib64/libhdr10p_m2l.exynos990.so
-vendor/lib64/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so
 
 ## Keymaster
 -vendor/lib64/libskeymaster4device.so
@@ -356,11 +353,6 @@ vendor/tee/driver/18d9f073-18a5-4ade-9def-875e07f7f293_
 vendor/tee/ffffffff-0000-0000-0000-000000000030
 vendor/tee/tui/resolution_common/ID00000100
 
-## Samsung SLSI Configstore
-vendor/bin/hw/vendor.samsung_slsi.hardware.configstore@1.0-service
-vendor/etc/init/vendor.samsung_slsi.hardware.configstore@1.0-service.rc
-vendor/lib64/vendor.samsung_slsi.hardware.configstore@1.0.so
-
 ## Samsung SLSI Neuralnetworks
 vendor/bin/hw/android.hardware.neuralnetworks@1.3-service.eden-drv
 vendor/etc/init/android.hardware.neuralnetworks@1.3-service.eden-drv.rc
@@ -443,12 +435,9 @@ vendor/lib64/sensors.sensorhub.so
 
 ## Widevine
 vendor/bin/hw/android.hardware.drm@1.3-service.widevine
-vendor/bin/vendor.samsung.hardware.security.widevine.keyprov@1.0-service
 vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc
-vendor/etc/init/vendor.samsung.hardware.security.widevine.keyprov@1.0-service.rc
 vendor/lib/liboemcrypto.so
 vendor/lib/libwvhidl.so
-vendor/lib64/vendor.samsung.hardware.security.widevine.keyprov@1.0.so
 
 ## Wi-Fi
 vendor/bin/hw/macloader
