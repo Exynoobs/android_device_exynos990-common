@@ -434,6 +434,7 @@ vendor/lib64/sensors.grip.so
 vendor/lib64/sensors.sensorhub.so
 
 ## Widevine
+-vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml
 vendor/bin/hw/android.hardware.drm@1.3-service.widevine
 vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc
 vendor/lib/liboemcrypto.so
