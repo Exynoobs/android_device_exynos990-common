@@ -99,9 +99,6 @@ vendor/lib64/vendor.samsung.hardware.camera.device@5.0.so
 vendor/lib64/vendor.samsung.hardware.camera.provider@4.0-legacy.so
 vendor/lib64/vendor.samsung.hardware.camera.provider@4.0.so
 
-# Copied by vendor_init which needs read access
-system/media/fruc_kernels.exynos990.bin:vendor/firmware/fruc_kernels.exynos990.bin
-
 ## Camera dependencies
 vendor/lib/libSEF.quram.so
 vendor/lib/libacryl.so
