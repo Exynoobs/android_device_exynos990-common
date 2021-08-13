@@ -4,6 +4,21 @@
 /data/vendor/mediadrm(/.*)?    u:object_r:mediadrm_vendor_data_file:s0
 /data/vendor/nfc(/.*)?         u:object_r:nfc_vendor_data_file:s0
 
+## EFS
+/efs/FactoryApp(/.*)?      u:object_r:app_efs_file:s0
+/efs/biometrics(/.*)?      u:object_r:sec_efs_file:s0
+/efs/cirrus(/.*)?          u:object_r:sec_efs_file:s0
+/efs/cpdebug(/.*)?         u:object_r:cpdebug_efs_file:s0
+/efs/dsms(/.*)?            u:object_r:dsms_efs_file:s0
+/efs/gatekeeper(/.*)?      u:object_r:gatekeeper_efs_file:s0
+/efs/lpm(/.*)?             u:object_r:sec_efs_file:s0
+/efs/pdp_bkup(/.*)?        u:object_r:pdp_efs_file:s0
+/efs/recovery(/.*)?        u:object_r:sec_efs_file:s0
+/efs/sec_efs(/.*)?         u:object_r:sec_efs_file:s0
+/efs/sec_efs/kpm           u:object_r:kpm_efs_file:s0
+/efs/ssm(/.*)?             u:object_r:ssm_efs_file:s0
+/efs/usb_hw_param(/.*)?    u:object_r:sec_efs_file:s0
+
 ### ROOT
 /keydata(/.*)?      u:object_r:keydata_data_file:s0
 /keyrefuge(/.*)?    u:object_r:keyrefuge_data_file:s0
