@@ -969,13 +969,6 @@ on fs
     mkdir /mnt/vendor/persist/data/sfs 0700 system system
     mkdir /mnt/vendor/persist/data/tz 0700 system system
 
-    wait /dev/block/platform/13100000.ufs/by-name/dqmdbg
-    mount ext4 /dev/block/platform/13100000.ufs/by-name/dqmdbg /dqmdbg nosuid nodev noatime noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic
-
-    chown system system /dqmdbg
-    chmod 0770 /dqmdbg
-    restorecon /dqmdbg
-
     # Enable rmnet data and aggregation
     setprop persist.rmnet.mux enabled
     setprop persist.rmnet.data.enable true

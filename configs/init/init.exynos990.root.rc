@@ -1,5 +1,3 @@
-import /prism/etc/init/init.rc
-
 on init
     # for tsp cmd node
     chown system radio /sys/class/sec/tsp/cmd
@@ -93,15 +91,6 @@ on post-fs-data
     chmod 0771 /spu
     restorecon /spu
 
-    # Samsung ODE
-    chown system system /keydata
-    chmod 0771 /keydata
-    restorecon /keydata
-    
-    chown system system /keyrefuge
-    chmod 0771 /keyrefuge
-    restorecon /keyrefuge
-    
     chown system radio /efs
     chmod 0771 /efs
     restorecon_recursive /efs

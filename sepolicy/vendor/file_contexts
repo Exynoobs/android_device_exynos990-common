@@ -19,14 +19,6 @@
 /efs/ssm(/.*)?             u:object_r:ssm_efs_file:s0
 /efs/usb_hw_param(/.*)?    u:object_r:sec_efs_file:s0
 
-### ROOT
-/keydata(/.*)?      u:object_r:keydata_data_file:s0
-/keyrefuge(/.*)?    u:object_r:keyrefuge_data_file:s0
-/dqmdbg(/.*)?       u:object_r:dqmdbg_file:s0
-/omr(/.*)?          u:object_r:omr_file:s0
-/optics(/.*)?       u:object_r:optics_file:s0
-/prism(/.*)?        u:object_r:prism_file:s0
-
 ## Devices
 # Block
 /dev/block/platform/.+/by-name/cpefs    u:object_r:cpefs_block_device:s0

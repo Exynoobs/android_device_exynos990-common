@@ -120,14 +120,7 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 69009408
 
 BOARD_USES_METADATA_PARTITION := true
 
-BOARD_ROOT_EXTRA_FOLDERS := \
-    efs \
-    dqmdbg \
-    omr \
-    prism \
-    optics \
-    keydata \
-    keyrefuge
+BOARD_ROOT_EXTRA_FOLDERS := efs
 
 ## Platform
 BOARD_VENDOR := samsung
