@@ -298,7 +298,7 @@ vendor/etc/plmn_se13.bin
 vendor/lib/libaudio-ril.so
 vendor/lib/libmdf.so
 vendor/lib/libreference-ril.so
-vendor/lib/libril.so
+vendor/lib/libril.so:vendor/lib/libril-samsung.so
 vendor/lib/libsec_semRil.so
 vendor/lib/libsecure_storage.so
 vendor/lib/vendor.samsung.hardware.radio.bridge@2.0.so
@@ -306,7 +306,7 @@ vendor/lib/vendor.samsung.hardware.radio@2.0.so
 vendor/lib/vendor.samsung.hardware.radio@2.1.so
 vendor/lib64/libmdf.so
 vendor/lib64/libreference-ril.so
-vendor/lib64/libril.so
+vendor/lib64/libril.so:vendor/lib64/libril-samsung.so
 vendor/lib64/libsec_semRil.so
 vendor/lib64/libsecure_storage.so
 vendor/lib64/vendor.samsung.hardware.radio.bridge@2.0.so
